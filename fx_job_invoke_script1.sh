@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Begin
 
 FX_USER=$1
