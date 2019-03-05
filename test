@@ -3,3 +3,4 @@ echo "Hello World"
 echo "Bye Bye"
 echo "Testing"
 error
+done 
