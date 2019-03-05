@@ -44,7 +44,7 @@ while [ "$taskStatus" == "WAITING" -o "$taskStatus" == "PROCESSING" ]
                 passPercent=$(curl -k --header "Content-Type: application/json;charset=UTF-8" -X GET -u "${FX_USER}":"${FX_PWD}" "${FX_HOST}"/api/v1/runs/${runId} | jq -r '.["data"]|.ciCdStatus')
                         
 			IFS=':' read -r -a array <<< "$passPercent"
-			
+			error
 			taskStatus="${array[0]}"			
 
 			echo "Status =" "${array[0]}" " Success Percent =" "${array[1]}"  " Total Tests =" "${array[2]}" " Time Taken =" "${array[4]}" " Run =" "${array[5]}"
