@@ -13,7 +13,7 @@ CATEGORIES=$7
 echo "user=${FX_USER}" 
 echo "region=${REGION}"
 echo "jobid=${FX_JOBID}"
-echo "hostname=${FX_HOST}"
+#echo "hostname=${FX_HOST}"
 
 runId=$(curl -k --header "Content-Type: application/json;charset=UTF-8" -X POST -d '{}' -u "${FX_USER}":"${FX_PWD}" https://cloud.fxlabs.io/api/v1/runs/job/${FX_JOBID}?region=${REGION} | jq -r '.["data"]|.id')
 #runId=$(curl -k --header "Content-Type: application/json;charset=UTF-8" -X POST -d '{}' -u "${FX_USER}":"${FX_PWD}" "${FX_HOST}"/api/v1/runs/job/${FX_JOBID}?region=${REGION} | jq -r '.["data"]|.id')
