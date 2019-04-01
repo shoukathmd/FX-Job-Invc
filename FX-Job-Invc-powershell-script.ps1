@@ -1,5 +1,5 @@
 #! /usr/bin/pwsh
-
+remove-item alias:curl
 $FX_USER=$args[0]
 $FX_PWD=$args[1]
 $FX_JOBID=$args[2]
