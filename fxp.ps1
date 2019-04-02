@@ -47,7 +47,7 @@ $AllProtocols = [System.Net.SecurityProtocolType]'Ssl3,Tls,Tls11,Tls12'
 
 
 
-$runId=$((Invoke-WebRequest  -Uri "${FX_HOST}/api/v1/runs/job/${FX_JOBID}?region=${REGION}"   -Headers $headers -Method POST  -ContentType "application/json;charset=UTF-8" ) | ConvertFrom-Json  | select -expand data | select -expand id)
+$runId=$((Invoke-WebRequest  -Uri "${FX_HOST}/api/v1/runs/job/${FX_JOBID}?region=${REGION}" -UseBasicParsing   -Headers $headers -Method POST  -ContentType "application/json;charset=UTF-8" ) | ConvertFrom-Json  | select -expand data | select -expand id)
 
 Write-Host "runId = $runId"
 Write-Host " "
@@ -59,7 +59,7 @@ if (  !$runId )
 	  Write-Host "RunId =  "$runId""
           Write-Host "Invalid runid"
       
-          Write-Host $(Invoke-WebRequest  -Uri "${FX_HOST}/api/v1/runs/job/${FX_JOBID}?region=${REGION}"   -Headers $headers -Method POST  -ContentType "application/json;charset=UTF-8")
+          Write-Host $(Invoke-WebRequest  -Uri "${FX_HOST}/api/v1/runs/job/${FX_JOBID}?region=${REGION}" -UseBasicParsing  -Headers $headers -Method POST  -ContentType "application/json;charset=UTF-8")
 
           exit 1
 }
@@ -74,7 +74,7 @@ While ( ("$taskStatus" -eq "WAITING") -or ("$taskStatus" -eq "PROCESSING") )
 	       	 Write-Host "Checking Status...."
                  Write-Host "----------------------------------------------------------------------------------------------------------------------------------------------"
 
-                  $passPercent=$((Invoke-WebRequest  -Uri "${FX_HOST}/api/v1/runs/${runId}"   -Headers $headers -Method GET  -ContentType "application/json;charset=UTF-8" )| ConvertFrom-Json  | select -expand data | select -expand ciCdStatus)
+                  $passPercent=$((Invoke-WebRequest  -Uri "${FX_HOST}/api/v1/runs/${runId}"  -UseBasicParsing -Headers $headers -Method GET  -ContentType "application/json;charset=UTF-8" )| ConvertFrom-Json  | select -expand data | select -expand ciCdStatus)
 
 
                 
@@ -102,7 +102,7 @@ exit 1
 }
 
 
-Write-Host $(Invoke-WebRequest  -Uri "${FX_HOST}/api/v1/runs/${runId}" -Headers $headers -Method GET  -ContentType "application/json;charset=UTF-8" )
+Write-Host $(Invoke-WebRequest  -Uri "${FX_HOST}/api/v1/runs/${runId}" -UseBasicParsing -Headers $headers -Method GET  -ContentType "application/json;charset=UTF-8" )
 exit 1
 
 return 0
