@@ -65,7 +65,7 @@ if (  !$runId )
 }
 
 $taskStatus="WAITING"
-Write-Host "taskStatus = " $taskStatus
+Write-Host "taskStatus =  $taskStatus"
 
 While ( ("$taskStatus" -eq "WAITING") -or ("$taskStatus" -eq "PROCESSING") )
 { 
