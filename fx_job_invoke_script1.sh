@@ -73,6 +73,6 @@ fi
 
 #echo $(curl -k --header "Content-Type: application/json;charset=UTF-8" -X GET -u "${FX_USER}":"${FX_PWD}" https://cloud.fxlabs.io/api/v1/runs/${runId})
 echo $(curl -k --header "Content-Type: application/json;charset=UTF-8" -X GET -u "${FX_USER}":"${FX_PWD}" "${FX_HOST}"/api/v1/runs/${runId})
-exit1
+exit 1
 
 return 0
