@@ -16,7 +16,7 @@ echo "jobid=${FX_JOBID}"
 echo "hostname=${FX_HOST}"
 
 #runId=$(curl -k --header "Content-Type: application/json;charset=UTF-8" -X POST -d '{}' -u "${FX_USER}":"${FX_PWD}" https://cloud.fxlabs.io/api/v1/runs/job/${FX_JOBID}?region=${REGION} | jq -r '.["data"]|.id')
-runId=$(curl -k --header "Content-Type: application/json;charset=UTF-8" -X POST -d '{}' -u "${FX_USER}":"${FX_PWD}" "${FX_HOST}"/api/v1/runs/job/${FX_JOBID}?region=${REGION} | jq -r '.["data"]|.id')
+runId=$(curl -k -L --header "Content-Type: application/json;charset=UTF-8" -X POST -d '{}' -u "${FX_USER}":"${FX_PWD}" "${FX_HOST}"/api/v1/runs/job/${FX_JOBID}?region=${REGION} | jq -r '.["data"]|.id')
 
 echo "runId =" $runId
 if [ -z "$runId" ]
@@ -25,7 +25,7 @@ then
           echo "Invalid runid"
 #	  echo $(curl -k --header "Content-Type: application/json;charset=UTF-8" -X POST -d '{}' -u "${FX_USER}":"${FX_PWD}" https://cloud.fxlabs.io/api/v1/runs/job/${FX_JOBID}?region=${REGION})
           
-          echo $(curl -k --header "Content-Type: application/json;charset=UTF-8" -X POST -d '{}' -u "${FX_USER}":"${FX_PWD}" "${FX_HOST}"/api/v1/runs/job/${FX_JOBID}?region=${REGION})
+          echo $(curl -k -L --header "Content-Type: application/json;charset=UTF-8" -X POST -d '{}' -u "${FX_USER}":"${FX_PWD}" "${FX_HOST}"/api/v1/runs/job/${FX_JOBID}?region=${REGION})
           exit 1
 fi
 
@@ -41,7 +41,7 @@ while [ "$taskStatus" == "WAITING" -o "$taskStatus" == "PROCESSING" ]
 		 echo "Checking Status...."
 
 #		passPercent=$(curl -k --header "Content-Type: application/json;charset=UTF-8" -X GET -u "${FX_USER}":"${FX_PWD}" https://cloud.fxlabs.io/api/v1/runs/${runId} | jq -r '.["data"]|.ciCdStatus')
-                passPercent=$(curl -k --header "Content-Type: application/json;charset=UTF-8" -X GET -u "${FX_USER}":"${FX_PWD}" "${FX_HOST}"/api/v1/runs/${runId} | jq -r '.["data"]|.ciCdStatus')
+                passPercent=$(curl -k -L --header "Content-Type: application/json;charset=UTF-8" -X GET -u "${FX_USER}":"${FX_PWD}" "${FX_HOST}"/api/v1/runs/${runId} | jq -r '.["data"]|.ciCdStatus')
                         
 			IFS=':' read -r -a array <<< "$passPercent"
 			
@@ -72,7 +72,7 @@ echo "Task Status = " $taskStatus
 fi
 
 #echo $(curl -k --header "Content-Type: application/json;charset=UTF-8" -X GET -u "${FX_USER}":"${FX_PWD}" https://cloud.fxlabs.io/api/v1/runs/${runId})
-echo $(curl -k --header "Content-Type: application/json;charset=UTF-8" -X GET -u "${FX_USER}":"${FX_PWD}" "${FX_HOST}"/api/v1/runs/${runId})
+echo $(curl -k -L --header "Content-Type: application/json;charset=UTF-8" -X GET -u "${FX_USER}":"${FX_PWD}" "${FX_HOST}"/api/v1/runs/${runId})
 exit 1
 
 return 0
